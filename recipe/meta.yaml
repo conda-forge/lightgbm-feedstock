@@ -1,6 +1,6 @@
 {% set name = "lightgbm" %}
-{% set version = "2.0.4" %}
-{% set sha256 = "6472ded5b0df03504b9d53f4d0e8070a59c2ea015ae526137305c75eb2a77eec" %}
+{% set version = "2.0.5" %}
+{% set sha256 = "bd70f018de74369c3db6903a8701cb2f408c0bc53ea9d2a1708137091dfadf38" %}
 
 package:
   name: {{ name|lower }}
@@ -10,12 +10,9 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
-  patches:
-    # See issue concerning compiler restrictions in https://github.com/Microsoft/LightGBM/issues/710
-    - cmake_osx.patch  # [osx]
 
 build:
-  number: 1
+  number: 0
   script: python setup.py install --single-version-externally-managed --record record.txt  # [not osx]
   script: export LDFLAGS="${LDFLAGS} -L$PREFIX/lib"; python setup.py install --single-version-externally-managed --record record.txt  # [osx]
   skip: True  # [win32]
@@ -46,9 +43,7 @@ about:
   home: https://github.com/Microsoft/LightGBM
   license: MIT
   license_family: MIT
-  # The license file is now included and should in available in the next release
-  # https://github.com/Microsoft/LightGBM/pull/680
-  license_file: '{{ environ["RECIPE_DIR"] }}/LICENSE'
+  license_file: LICENSE
   summary: 'LightGBM is a gradient boosting framework that uses tree based learning algorithms.'
 
   description: |
