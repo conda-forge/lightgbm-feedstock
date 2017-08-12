@@ -10,12 +10,9 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
-  #patches:
-    # See issue concerning compiler restrictions in https://github.com/Microsoft/LightGBM/issues/710
-    #  - cmake_osx.patch  # [osx]
 
 build:
-  number: 1
+  number: 0
   script: python setup.py install --single-version-externally-managed --record record.txt  # [not osx]
   script: export LDFLAGS="${LDFLAGS} -L$PREFIX/lib"; python setup.py install --single-version-externally-managed --record record.txt  # [osx]
   skip: True  # [win32]
