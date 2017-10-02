@@ -24,9 +24,8 @@ class TestSklearn(unittest.TestCase):
         gbm = lgb.LGBMClassifier(n_estimators=50, silent=True)
         gbm.fit(X_train, y_train, eval_set=[(X_test, y_test)], early_stopping_rounds=5, verbose=False)
         ret = log_loss(y_test, gbm.predict_proba(X_test))
-
         self.assertLess(ret, 0.15)
-        self.assertAlmostEqual(ret, gbm.evals_result['valid_0']['binary_logloss'][gbm.best_iteration - 1], places=5)
+        self.assertAlmostEqual(ret, gbm.evals_result_['valid_0']['binary_logloss'][gbm.best_iteration_ - 1], places=5)
 
     def test_regression(self):
         X, y = load_boston(True)
@@ -34,9 +33,8 @@ class TestSklearn(unittest.TestCase):
         gbm = lgb.LGBMRegressor(n_estimators=50, silent=True)
         gbm.fit(X_train, y_train, eval_set=[(X_test, y_test)], early_stopping_rounds=5, verbose=False)
         ret = mean_squared_error(y_test, gbm.predict(X_test))
-
         self.assertLess(ret, 16)
-        self.assertAlmostEqual(ret, gbm.evals_result['valid_0']['l2'][gbm.best_iteration - 1], places=5)
+        self.assertAlmostEqual(ret, gbm.evals_result_['valid_0']['l2'][gbm.best_iteration_ - 1], places=5)
 
 
 if __name__ == '__main__':
