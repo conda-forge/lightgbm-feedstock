@@ -23,17 +23,17 @@ requirements:
     - setuptools
     - toolchain
     - cmake >=3.8
-    - clangdev 4.0*  # [osx]
-    - libcxx 4.0.*  # [osx]
-    - openmp 4.0.*  # [osx]
+    - clangdev 6.*  # [osx]
+    - libcxx 6.*  # [osx]
+    - openmp 6.*  # [osx]
   run:
     - python
     - numpy
     - scipy
     - scikit-learn
-    - clangdev 4.0*  # [osx]
-    - libcxx 4.0.*  # [osx]
-    - openmp 4.0.*  # [osx]
+    - clangdev 6.*  # [osx]
+    - libcxx 6.*  # [osx]
+    - openmp 6.*  # [osx]
 
 test:
   imports:
