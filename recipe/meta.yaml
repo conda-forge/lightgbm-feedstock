@@ -19,10 +19,12 @@ build:
 
 requirements:
   build:
+    - cmake >=3.8
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
     - python
     - setuptools
-    - toolchain
-    - cmake >=3.8
     - clangdev 4.0*  # [osx]
     - libcxx 4.0.*  # [osx]
     - openmp 4.0.*  # [osx]
