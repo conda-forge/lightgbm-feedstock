@@ -1,6 +1,6 @@
 {% set name = "lightgbm" %}
-{% set version = "2.1.2" %}
-{% set sha256 = "951c4853d9fd824aff24dea10ffc9cc91f391f28a405160dfc63a68acc0417b1" %}
+{% set version = "2.2.0" %}
+{% set sha256 = "06a763b902dd7e18a42232c368afd9b8dca89df75862be4891db2bc540a04e67" %}
 
 package:
   name: {{ name|lower }}
