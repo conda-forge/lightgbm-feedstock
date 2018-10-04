@@ -1,6 +1,6 @@
 {% set name = "lightgbm" %}
-{% set version = "2.2.0" %}
-{% set sha256 = "06a763b902dd7e18a42232c368afd9b8dca89df75862be4891db2bc540a04e67" %}
+{% set version = "2.2.1" %}
+{% set sha256 = "d8940572333cbeb7a53ad10fccb34c97728e637a26997cc580975599012b3597" %}
 
 package:
   name: {{ name|lower }}
@@ -13,8 +13,8 @@ source:
 
 build:
   number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt  # [not osx]
-  script: export LDFLAGS="${LDFLAGS} -L$PREFIX/lib"; python setup.py install --single-version-externally-managed --record record.txt  # [osx]
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"  # [not osx]
+  script: 'export LDFLAGS="${LDFLAGS} -L$PREFIX/lib"; {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv'  # [osx]
   skip: True  # [win32]
 
 requirements:
@@ -24,6 +24,7 @@ requirements:
     - {{ compiler('cxx') }}
   host:
     - python
+    - pip
     - setuptools
     - clangdev 4.0*  # [osx]
     - libcxx 4.0.*  # [osx]
