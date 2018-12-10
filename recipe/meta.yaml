@@ -28,7 +28,11 @@ requirements:
     - setuptools
     - clangdev 4.0*  # [osx]
     - libcxx 4.0.*  # [osx]
+    {% if not compiler('c').startswith("toolchain") %}
+    - llvm-openmp  # [osx]
+    {% else %}
     - openmp 4.0.*  # [osx]
+    {% endif %}
   run:
     - python
     - numpy
@@ -36,7 +40,11 @@ requirements:
     - scikit-learn
     - clangdev 4.0*  # [osx]
     - libcxx 4.0.*  # [osx]
+    {% if not compiler('c').startswith("toolchain") %}
+    - llvm-openmp  # [osx]
+    {% else %}
     - openmp 4.0.*  # [osx]
+    {% endif %}
 
 test:
   imports:
