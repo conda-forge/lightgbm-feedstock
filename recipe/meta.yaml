@@ -1,6 +1,6 @@
 {% set name = "lightgbm" %}
-{% set version = "2.3.0" %}
-{% set sha256 = "37225b9f816ea3365ff5988fc8a3717e46ac99a5f223986c86c86cec4f111b54" %}
+{% set version = "2.3.1" %}
+{% set sha256 = "bd1817be401e74c0d8b049e97ea2f35d2ce155cfa130119ce4195ea207bd6388" %}
 
 package:
   name: {{ name|lower }}
@@ -13,8 +13,7 @@ source:
 
 build:
   number: 0
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"  # [not osx]
-  script: 'export LDFLAGS="${LDFLAGS} -L$PREFIX/lib"; {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv'  # [osx]
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
   skip: True  # [win32]
 
 requirements:
@@ -26,17 +25,13 @@ requirements:
     - python
     - pip
     - setuptools
-    - clangdev 4.0*  # [osx]
-    - libcxx 4.0.*  # [osx]
-    - openmp 4.0.*  # [osx]
+    - llvm-openmp  # [osx]
+    - libgomp  # [linux]
   run:
     - python
     - numpy
     - scipy
     - scikit-learn
-    - clangdev 4.0*  # [osx]
-    - libcxx 4.0.*  # [osx]
-    - openmp 4.0.*  # [osx]
 
 test:
   imports:
