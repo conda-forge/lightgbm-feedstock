@@ -12,8 +12,8 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+  number: 1
+  script: "{{ PYTHON }} -m pip install . -vv"
   skip: True  # [win32]
 
 requirements:
@@ -31,7 +31,7 @@ requirements:
     - python
     - numpy
     - scipy
-    - scikit-learn
+    - scikit-learn <=0.21.3
 
 test:
   imports:
