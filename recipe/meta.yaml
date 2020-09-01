@@ -1,6 +1,6 @@
 {% set name = "lightgbm" %}
-{% set version = "2.3.1" %}
-{% set sha256 = "bd1817be401e74c0d8b049e97ea2f35d2ce155cfa130119ce4195ea207bd6388" %}
+{% set version = "3.0.0" %}
+{% set sha256 = "05f5b358469a679dbf27521d926750ca53ff1e61a6c0293d49af30094ebd9d4a" %}
 
 package:
   name: {{ name|lower }}
@@ -13,8 +13,8 @@ source:
 
 build:
   number: 0
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
-  skip: True  # [win32]
+  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+  skip: true  # [win32]
 
 requirements:
   build:
@@ -42,7 +42,7 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: 'LightGBM is a gradient boosting framework that uses tree based learning algorithms.'
+  summary: LightGBM is a gradient boosting framework that uses tree based learning algorithms.
 
   description: |
     A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework based on decision tree algorithms, used for ranking, classification and many other machine learning tasks.
