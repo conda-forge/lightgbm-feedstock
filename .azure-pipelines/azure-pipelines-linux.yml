@@ -8,6 +8,10 @@ jobs:
     vmImage: ubuntu-16.04
   strategy:
     matrix:
+      linux_64_python3.6.____73_pypy:
+        CONFIG: linux_64_python3.6.____73_pypy
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: condaforge/linux-anvil-comp7
       linux_64_python3.6.____cpython:
         CONFIG: linux_64_python3.6.____cpython
         UPLOAD_PACKAGES: 'True'
@@ -20,7 +24,6 @@ jobs:
         CONFIG: linux_64_python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
-    maxParallel: 8
   timeoutInMinutes: 360
 
   steps:
