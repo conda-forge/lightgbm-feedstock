@@ -1,6 +1,6 @@
 {% set name = "lightgbm" %}
-{% set version = "3.0.0" %}
-{% set sha256 = "05f5b358469a679dbf27521d926750ca53ff1e61a6c0293d49af30094ebd9d4a" %}
+{% set version = "3.1.0" %}
+{% set sha256 = "0d0abcb1035a7f50226412a78993d61830621e16fd6fa685bbf178c97b0d6e82" %}
 
 package:
   name: {{ name|lower }}
@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 2
+  number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
   skip: true  # [win32]
 
