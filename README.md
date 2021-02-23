@@ -21,13 +21,6 @@ Current build status
 
 
 <table><tr>
-    <td>Travis</td>
-    <td>
-      <a href="https://travis-ci.com/conda-forge/lightgbm-feedstock">
-        <img alt="macOS" src="https://img.shields.io/travis/com/conda-forge/lightgbm-feedstock/master.svg?label=macOS">
-      </a>
-    </td>
-  </tr><tr>
     <td>Drone</td>
     <td>
       <a href="https://cloud.drone.io/conda-forge/lightgbm-feedstock">
@@ -303,4 +296,5 @@ Feedstock Maintainers
 
 * [@aldanor](https://github.com/aldanor/)
 * [@synapticarbors](https://github.com/synapticarbors/)
+* [@xhochy](https://github.com/xhochy/)
 
