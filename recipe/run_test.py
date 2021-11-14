@@ -8,6 +8,7 @@ functional test here that is adapted from:
 
 """
 
+import platform
 import unittest
 
 import lightgbm as lgb
@@ -38,4 +39,5 @@ class TestSklearn(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    if platform.machine() != "ppc64le":
+        unittest.main()
