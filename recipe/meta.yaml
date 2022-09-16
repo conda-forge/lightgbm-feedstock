@@ -28,9 +28,9 @@ requirements:
     - python
     - pip
     - setuptools
-    - boost-cpp =1.69 # [not osx]
-    - cudatoolkit-dev # [not osx]
-    - wget # [linux]
+    - boost-cpp =1.69  # [not osx]
+    - cudatoolkit-dev  # [not osx]
+    - wget  # [linux]
     - llvm-openmp  # [osx]
     - libgomp  # [linux]
   run:
