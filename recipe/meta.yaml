@@ -16,8 +16,6 @@ build:
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv  # [not win]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv --install-option=--gpu --install-option=--boost-root=%BUILD_PREFIX%\Library\include\boost  # [win]
   skip: true  # [win32]
-  missing_dso_whitelist:
-    - '*/OpenCL.dll'  # [win]
 
 requirements:
   build:
@@ -33,6 +31,7 @@ requirements:
     - setuptools
     - boost-cpp =1.69  # [win]
     - cudatoolkit-dev  # [win]
+    - khronos-opencl-icd-loader  # [win]
     - llvm-openmp  # [osx]
     - libgomp  # [linux]
   run:
