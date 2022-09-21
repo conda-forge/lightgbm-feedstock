@@ -12,8 +12,9 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+  number: 1
+  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv  # [not win]
+  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv --install-option=--gpu --install-option=--boost-root=%BUILD_PREFIX%\Library\include\boost  # [win]
   skip: true  # [win32]
 
 requirements:
@@ -28,6 +29,9 @@ requirements:
     - python
     - pip
     - setuptools
+    - boost-cpp =1.69  # [win]
+    - cudatoolkit-dev  # [win]
+    - khronos-opencl-icd-loader  # [win]
     - llvm-openmp  # [osx]
     - libgomp  # [linux]
   run:
