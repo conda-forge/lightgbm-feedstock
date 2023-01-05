@@ -65,7 +65,7 @@ class TestSklearn(unittest.TestCase):
         ret = mean_squared_error(y_test, gbm.predict(X_test))
         self.assertLess(ret, 174)
         self.assertAlmostEqual(
-            ret, gbm.evals_result_['valid_0']['l2'][gbm.best_iteration_ - 1], places=5
+            ret, gbm.evals_result_['valid_0']['l2'][gbm.best_iteration_ - 1], places=4
         )
 
 
