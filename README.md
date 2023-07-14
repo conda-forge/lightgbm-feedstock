@@ -1,11 +1,11 @@
-About lightgbm
-==============
+About lightgbm-feedstock
+========================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/lightgbm-feedstock/blob/main/LICENSE.txt)
 
 Home: https://github.com/Microsoft/LightGBM
 
 Package license: MIT
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/lightgbm-feedstock/blob/main/LICENSE.txt)
 
 Summary: LightGBM is a gradient boosting framework that uses tree based learning algorithms.
 
