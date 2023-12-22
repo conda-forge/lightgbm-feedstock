@@ -1,5 +1,5 @@
 {% set name = "lightgbm" %}
-{% set version = "4.1.0" %}
+{% set version = "4.2.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: bee59dd269a93b093f2c610d4a6683a7ea87c63d3ea35c622123ce2c020b2abc
+  sha256: 8a4d051df2ab2218998a16f7712e843ee9e96d8b09ffbfcc18533da127e0da02
 
 build:
-  number: 2
+  number: 0
   script: {{ PYTHON }} -m pip install .
 
 requirements:
