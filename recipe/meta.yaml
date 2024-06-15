@@ -23,7 +23,7 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
   host:
-    - scikit-build-core >=0.4.4
+    - scikit-build-core >=0.9.3
     - python
     - pip
     - setuptools
