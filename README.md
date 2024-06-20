@@ -373,6 +373,7 @@ Feedstock Maintainers
 =====================
 
 * [@aldanor](https://github.com/aldanor/)
+* [@jameslamb](https://github.com/jameslamb/)
 * [@synapticarbors](https://github.com/synapticarbors/)
 * [@xhochy](https://github.com/xhochy/)
 
