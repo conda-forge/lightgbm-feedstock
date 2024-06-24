@@ -14,10 +14,16 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
+cuda_compiler_version:
+- None
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '16'
+impl:
+- cpu
+libboost_devel:
+- '1.84'
 llvm_openmp:
 - '16'
 macos_machine:
