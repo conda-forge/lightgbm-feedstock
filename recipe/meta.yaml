@@ -38,9 +38,9 @@ requirements:
     - pip
     - llvm-openmp  # [osx]
     - libgomp  # [linux]
-    - libboost-devel           # [impl == "cpu"]
-    - ocl-icd                  # [impl == "cpu" and linux]
-    - khronos-ocl-icd-loader   # [impl == "cpu" and not linux]
+    - libboost-devel              # [impl == "cpu"]
+    - ocl-icd                     # [impl == "cpu" and linux]
+    - khronos-opencl-icd-loader   # [impl == "cpu" and not linux]
   run:
     - python
     - numpy >=1.17.0
