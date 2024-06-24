@@ -1,5 +1,6 @@
 {% set name = "lightgbm" %}
 {% set version = "4.4.0" %}
+{% set build_num = "2" %}
 
 package:
   name: {{ name|lower }}
@@ -10,8 +11,14 @@ source:
   sha256: 9e8a7640911481134e60987d5d1e1cd157f430c3b4b38de8d36fc55c302bc299
 
 build:
-  number: 1
-  script: {{ PYTHON }} -m pip install .
+  number: {{ build_num }}
+  string: {{ impl }}_py{{ PY_VER }}h{{ PKG_HASH }}_{{ build_num }}
+  script:
+    - export CMAKE_ARGS="${CMAKE_ARGS} -DUSE_CUDA=1"  # [impl == "cuda"]
+    - export CMAKE_ARGS="${CMAKE_ARGS} -DUSE_GPU=1"   # [impl == "cpu"]
+    - {{ PYTHON }} -m pip install .
+  skip: True   # [cuda_compiler_version != "None" and impl != "cuda"]
+  skip: True   # [cuda_compiler_version == "None" and impl == "cuda"]
 
 requirements:
   build:
@@ -22,12 +29,16 @@ requirements:
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
+    - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
   host:
     - scikit-build-core >=0.9.3
     - python
     - pip
     - llvm-openmp  # [osx]
     - libgomp  # [linux]
+    - libboost-devel           # [impl == "cpu"]
+    - ocl-icd                  # [impl == "cpu" and linux]
+    - khronos-ocl-icd-loader   # [impl == "cpu" and not linux]
   run:
     - python
     - numpy >=1.17.0
