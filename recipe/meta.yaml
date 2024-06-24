@@ -14,8 +14,10 @@ build:
   number: {{ build_num }}
   string: {{ impl }}_py{{ PY_VER }}h{{ PKG_HASH }}_{{ build_num }}
   script:
-    - export CMAKE_ARGS="${CMAKE_ARGS} -DUSE_CUDA=1"  # [impl == "cuda"]
-    - export CMAKE_ARGS="${CMAKE_ARGS} -DUSE_GPU=1"   # [impl == "cpu"]
+    - set "CMAKE_ARGS=%CMAKE_ARGS% -DUSE_CUDA=1"  # [impl == "cuda" and win]
+    - set "CMAKE_ARGS=%CMAKE_ARGS% -DUSE_GPU=1"   # [impl == "cpu" and win]
+    - export CMAKE_ARGS="${CMAKE_ARGS} -DUSE_CUDA=1"  # [impl == "cuda" and not win]
+    - export CMAKE_ARGS="${CMAKE_ARGS} -DUSE_GPU=1"   # [impl == "cpu" and not win]
     - {{ PYTHON }} -m pip install .
   skip: True   # [cuda_compiler_version != "None" and impl != "cuda"]
   skip: True   # [cuda_compiler_version == "None" and impl == "cuda"]
