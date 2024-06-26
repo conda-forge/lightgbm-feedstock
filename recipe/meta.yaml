@@ -13,15 +13,15 @@ source:
 
 build:
   number: 2
-  string: {{ impl }}_py{{ PY_VER }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+  string: cuda_py{{ PY_VER }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+  string: cpu_py{{ PY_VER }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}   # [cuda_compiler_version == "None"]
   script:
-    - set "CMAKE_ARGS=%CMAKE_ARGS% -DUSE_CUDA=1"  # [impl == "cuda" and win]
-    - set "CMAKE_ARGS=%CMAKE_ARGS% -DUSE_GPU=1"   # [impl == "cpu" and win]
-    - export CMAKE_ARGS="${CMAKE_ARGS} -DUSE_CUDA=1"  # [impl == "cuda" and not win]
-    - export CMAKE_ARGS="${CMAKE_ARGS} -DUSE_GPU=1"   # [impl == "cpu" and not win]
+    - set "CMAKE_ARGS=%CMAKE_ARGS% -DUSE_CUDA=1"      # [cuda_compiler_version != "None" and win]
+    # For CPU builds, we include OpenCL too. USE_GPU means OpenCL and not CUDA builds
+    - set "CMAKE_ARGS=%CMAKE_ARGS% -DUSE_GPU=1"       # [cuda_compiler_version == "None" and win]
+    - export CMAKE_ARGS="${CMAKE_ARGS} -DUSE_CUDA=1"  # [cuda_compiler_version != "None" and not win]
+    - export CMAKE_ARGS="${CMAKE_ARGS} -DUSE_GPU=1"   # [cuda_compiler_version == "None" and not win]
     - {{ PYTHON }} -m pip install . -vv
-  skip: True   # [cuda_compiler_version != "None" and impl != "cuda"]
-  skip: True   # [cuda_compiler_version == "None" and impl == "cuda"]
 
 requirements:
   build:
@@ -39,9 +39,9 @@ requirements:
     - pip
     - llvm-openmp  # [osx]
     - libgomp  # [linux]
-    - libboost-devel              # [impl == "cpu"]
-    - ocl-icd                     # [impl == "cpu" and linux]
-    - khronos-opencl-icd-loader   # [impl == "cpu" and not linux]
+    - libboost-devel              # [cuda_compiler_version == "None"]
+    - ocl-icd                     # [cuda_compiler_version == "None" and linux]
+    - khronos-opencl-icd-loader   # [cuda_compiler_version == "None" and not linux]
   run:
     - python
     - numpy >=1.17.0

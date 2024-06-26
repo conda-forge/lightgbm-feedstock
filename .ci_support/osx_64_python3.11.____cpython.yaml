@@ -20,8 +20,6 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '16'
-impl:
-- cpu
 libboost_devel:
 - '1.84'
 llvm_openmp:

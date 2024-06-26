@@ -1,3 +1,0 @@
-impl:
-  - cpu
-  - cuda  # [linux or win]
