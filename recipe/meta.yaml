@@ -17,6 +17,7 @@ build:
   string: cpu_py{{ PY_VER }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}   # [cuda_compiler_version == "None"]
   script:
     - set "CMAKE_GENERATOR_PLATFORM="                 # [win]
+    - set "CMAKE_GENERATOR_TOOLSET="                  # [win]
     - set CMAKE_GENERATOR=Ninja                       # [win]
     - set "CMAKE_ARGS=%CMAKE_ARGS% -DUSE_CUDA=1"      # [cuda_compiler_version != "None" and win]
     # For CPU builds, we include OpenCL too. USE_GPU means OpenCL and not CUDA builds
