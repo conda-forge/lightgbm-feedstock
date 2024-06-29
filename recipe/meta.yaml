@@ -8,26 +8,46 @@ package:
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 9e8a7640911481134e60987d5d1e1cd157f430c3b4b38de8d36fc55c302bc299
+  patches:
+    - boost_shared.diff
 
 build:
-  number: 1
-  script: {{ PYTHON }} -m pip install .
+  number: 2
+  string: cuda_py{{ PY_VER }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+  string: cpu_py{{ PY_VER }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}   # [cuda_compiler_version == "None"]
+  # CUDA is not supported in windows
+  skip: True  # [cuda_compiler_version != "None" and win]
+  script:
+    - set "CMAKE_GENERATOR_PLATFORM="                 # [win]
+    - set "CMAKE_GENERATOR_TOOLSET="                  # [win]
+    - set CMAKE_GENERATOR=Ninja                       # [win]
+    - set "CMAKE_ARGS=%CMAKE_ARGS% -DUSE_CUDA=1"      # [cuda_compiler_version != "None" and win]
+    # For CPU builds, we include OpenCL too. USE_GPU means OpenCL and not CUDA builds
+    - set "CMAKE_ARGS=%CMAKE_ARGS% -DUSE_GPU=1"       # [cuda_compiler_version == "None" and win]
+    - export CMAKE_ARGS="${CMAKE_ARGS} -DUSE_CUDA=1"  # [cuda_compiler_version != "None" and not win]
+    - export CMAKE_ARGS="${CMAKE_ARGS} -DUSE_GPU=1"   # [cuda_compiler_version == "None" and not win]
+    - {{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - cmake >=3.18
-    - make
+    - make    # [not win]
+    - ninja   # [win]
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
+    - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
   host:
     - scikit-build-core >=0.9.3
     - python
     - pip
     - llvm-openmp  # [osx]
     - libgomp  # [linux]
+    - libboost-devel              # [cuda_compiler_version == "None"]
+    - ocl-icd                     # [cuda_compiler_version == "None" and linux]
+    - khronos-opencl-icd-loader   # [cuda_compiler_version == "None" and not linux]
   run:
     - python
     - numpy >=1.17.0
