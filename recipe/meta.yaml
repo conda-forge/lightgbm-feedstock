@@ -52,7 +52,7 @@ requirements:
     - python
     - numpy >=1.17.0
     - scipy
-    - __cuda                      # [cuda_compiler != "None"]
+    - __cuda                      # [cuda_compiler_version != "None"]
   # optional dependencies from [project.optional-dependencies]
   # at https://github.com/microsoft/LightGBM/blob/master/python-package/pyproject.toml
   run_constrained:
