@@ -12,7 +12,7 @@ source:
     - boost_shared.diff
 
 build:
-  number: 2
+  number: 3
   string: cuda_py{{ PY_VER }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
   string: cpu_py{{ PY_VER }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}   # [cuda_compiler_version == "None"]
   # CUDA is not supported in windows
@@ -52,6 +52,7 @@ requirements:
     - python
     - numpy >=1.17.0
     - scipy
+    - __cuda                      # [cuda_compiler != "None"]
   # optional dependencies from [project.optional-dependencies]
   # at https://github.com/microsoft/LightGBM/blob/master/python-package/pyproject.toml
   run_constrained:
