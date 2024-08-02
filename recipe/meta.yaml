@@ -81,7 +81,7 @@ about:
 
   description: |
     A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework based on decision tree algorithms, used for ranking, classification and many other machine learning tasks.
-  doc_url: https://lightgbm.readthedocs.io/en/stable/
+  doc_url: https://lightgbm.readthedocs.io/en/v{{ version }}/
   dev_url: https://github.com/microsoft/LightGBM
 
 extra:
