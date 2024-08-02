@@ -12,7 +12,7 @@ source:
     - boost_shared.diff
 
 build:
-  number: 0
+  number: 1
   string: cuda_py{{ PY_VER }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
   string: cpu_py{{ PY_VER }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
   # CUDA is not supported in windows
@@ -32,7 +32,7 @@ requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - cmake >=3.18
+    - cmake >=3.28
     - make    # [not win]
     - ninja   # [win]
     - {{ compiler('c') }}
@@ -73,7 +73,7 @@ test:
 
 
 about:
-  home: https://github.com/Microsoft/LightGBM
+  home: https://github.com/microsoft/LightGBM
   license: MIT
   license_family: MIT
   license_file: LICENSE
@@ -81,8 +81,8 @@ about:
 
   description: |
     A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework based on decision tree algorithms, used for ranking, classification and many other machine learning tasks.
-  doc_url: http://lightgbm.readthedocs.io/en/latest/
-  dev_url: https://github.com/Microsoft/LightGBM
+  doc_url: https://lightgbm.readthedocs.io/en/stable/
+  dev_url: https://github.com/microsoft/LightGBM
 
 extra:
   recipe-maintainers:
