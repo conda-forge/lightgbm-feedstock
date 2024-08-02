@@ -3,15 +3,15 @@ About lightgbm-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/lightgbm-feedstock/blob/main/LICENSE.txt)
 
-Home: https://github.com/Microsoft/LightGBM
+Home: https://github.com/microsoft/LightGBM
 
 Package license: MIT
 
 Summary: LightGBM is a gradient boosting framework that uses tree based learning algorithms.
 
-Development: https://github.com/Microsoft/LightGBM
+Development: https://github.com/microsoft/LightGBM
 
-Documentation: http://lightgbm.readthedocs.io/en/latest/
+Documentation: https://lightgbm.readthedocs.io/en/v4.5.0/
 
 A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework based on decision tree algorithms, used for ranking, classification and many other machine learning tasks.
 
