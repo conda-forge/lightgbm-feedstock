@@ -19,6 +19,9 @@ build:
   string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
   # CUDA is not supported in windows
   skip: true  # [cuda_compiler_version != "None" and win]
+  run_exports:
+    # Pin conservatively as we don't know ABI guarantees
+    - {{ pin_subpackage("liblightgbm", max_pin="x.x.x") }}
 
 requirements:
   build:
