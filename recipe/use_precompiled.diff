@@ -1,8 +1,16 @@
 diff --git a/lightgbm/libpath.py b/lightgbm/libpath.py
-index a55e736..194368b 100644
+index a55e736..0ee2c7f 100644
 --- a/lightgbm/libpath.py
 +++ b/lightgbm/libpath.py
-@@ -16,15 +16,14 @@ def find_lib_path() -> List[str]:
+@@ -4,6 +4,7 @@
+ from pathlib import Path
+ from platform import system
+ from typing import List
++import sys
+ 
+ __all__: List[str] = []
+ 
+@@ -16,15 +17,14 @@ def find_lib_path() -> List[str]:
      lib_path: list of str
         List of all found library paths to LightGBM.
      """
@@ -27,7 +35,7 @@ diff --git a/pyproject.toml b/pyproject.toml
 index 6234464..74de135 100644
 --- a/pyproject.toml
 +++ b/pyproject.toml
-@@ -54,35 +54,9 @@ documentation = "https://lightgbm.readthedocs.io/en/latest/"
+@@ -54,35 +54,11 @@ documentation = "https://lightgbm.readthedocs.io/en/latest/"
  repository = "https://github.com/microsoft/LightGBM.git"
  changelog = "https://github.com/microsoft/LightGBM/releases"
  
@@ -62,6 +70,8 @@ index 6234464..74de135 100644
 -# end:build-system
 +requires = ["setuptools"]
 +build-backend = "setuptools.build_meta"
++[tool.setuptools.packages]
++find = {}
  
  [tool.isort]
  include_trailing_comma = true

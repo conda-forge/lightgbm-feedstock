@@ -1,8 +1,7 @@
-{% set name = "liblightgbm" %}
 {% set version = "4.5.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: liblightgbm
   version: {{ version }}
 
 source:
@@ -42,6 +41,11 @@ requirements:
     - lightgbm {{ version }} cuda_*_{{ PKG_BUILDNUM }}   # [cuda_compiler_version != "None"]
     - lightgbm {{ version }} cpu_*_{{ PKG_BUILDNUM }}    # [cuda_compiler_version == "None"]
 
+
+test:
+  commands:
+    - test -f $PREFIX/lib/lib_lightgbm${SHLIB_EXT}  # [unix]
+
 outputs:
   - name: liblightgbm
 
@@ -49,8 +53,8 @@ outputs:
     script: install-python.sh
     build:
       noarch: python
-      string: cuda_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}   # [cuda_compiler_version == "None"]
+      string: cuda_py_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+      string: cpu_py_{{ PKG_BUILDNUM }}   # [cuda_compiler_version == "None"]
     requirements:
       build:
         - python                                 # [build_platform != target_platform]
@@ -74,6 +78,8 @@ outputs:
         - pyarrow >=6.0.1
         - scikit-learn !=0.22.0
     test:
+      files:
+        - python_run_test.py
       imports:
         - lightgbm
       requires:
@@ -81,6 +87,7 @@ outputs:
         - scikit-learn
       commands:
         - pip check
+        - python python_run_test.py
 
 about:
   home: https://github.com/microsoft/LightGBM
