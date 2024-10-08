@@ -68,8 +68,7 @@ outputs:
         - setuptools
       run:
         - python
-        - liblightgbm {{ version }}        # [cuda_compiler_version != "None"]
-        - liblightgbm {{ version }}        # [cuda_compiler_version == "None"]
+        - {{ pin_subpackage("liblightgbm", max_pin="x.x.x") }}
         - numpy >=1.17.0
         - scipy
       # optional dependencies from [project.optional-dependencies]
