@@ -106,6 +106,7 @@ about:
   dev_url: https://github.com/microsoft/LightGBM
 
 extra:
+  feedstock-name: lightgbm
   recipe-maintainers:
     - synapticarbors
     - aldanor
