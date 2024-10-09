@@ -1,5 +1,5 @@
-About liblightgbm-feedstock
-===========================
+About lightgbm-feedstock
+========================
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/lightgbm-feedstock/blob/main/LICENSE.txt)
 
@@ -133,10 +133,10 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-liblightgbm-green.svg)](https://anaconda.org/conda-forge/liblightgbm) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/liblightgbm.svg)](https://anaconda.org/conda-forge/liblightgbm) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/liblightgbm.svg)](https://anaconda.org/conda-forge/liblightgbm) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/liblightgbm.svg)](https://anaconda.org/conda-forge/liblightgbm) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-lightgbm-green.svg)](https://anaconda.org/conda-forge/lightgbm) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/lightgbm.svg)](https://anaconda.org/conda-forge/lightgbm) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/lightgbm.svg)](https://anaconda.org/conda-forge/lightgbm) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/lightgbm.svg)](https://anaconda.org/conda-forge/lightgbm) |
 
-Installing liblightgbm
-======================
+Installing lightgbm
+===================
 
-Installing `liblightgbm` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `lightgbm` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
@@ -222,17 +222,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating liblightgbm-feedstock
-==============================
+Updating lightgbm-feedstock
+===========================
 
-If you would like to improve the liblightgbm recipe or build a new
+If you would like to improve the lightgbm recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/liblightgbm-feedstock are
+Note that all branches in the conda-forge/lightgbm-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.
