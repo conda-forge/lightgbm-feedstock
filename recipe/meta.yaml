@@ -1,37 +1,30 @@
-{% set name = "lightgbm" %}
 {% set version = "4.5.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: liblightgbm
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/l/lightgbm/lightgbm-{{ version }}.tar.gz
   sha256: e1cd7baf0318d4e308a26575a63a4635f08df866ad3622a9d8e3d71d9637a1ba
   patches:
     - boost_shared.diff
+    # Taken from https://github.com/microsoft/LightGBM/blob/v4.5.0/build-python.sh#L308-L316
+    # except that we don't copy lib_lightgbm.so to SP_DIR
+    - use_precompiled.diff
 
 build:
   number: 2
-  string: cuda_py{{ PY_VER }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-  string: cpu_py{{ PY_VER }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+  string: cuda_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+  string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
   # CUDA is not supported in windows
   skip: true  # [cuda_compiler_version != "None" and win]
-  script:
-    - set "CMAKE_GENERATOR_PLATFORM="                 # [win]
-    - set "CMAKE_GENERATOR_TOOLSET="                  # [win]
-    - set CMAKE_GENERATOR=Ninja                       # [win]
-    - set "CMAKE_ARGS=%CMAKE_ARGS% -DUSE_CUDA=1"      # [cuda_compiler_version != "None" and win]
-    # For CPU builds, we include OpenCL too. USE_GPU means OpenCL and not CUDA builds
-    - set "CMAKE_ARGS=%CMAKE_ARGS% -DUSE_GPU=1"       # [cuda_compiler_version == "None" and win]
-    - export CMAKE_ARGS="${CMAKE_ARGS} -DUSE_CUDA=1"  # [cuda_compiler_version != "None" and not win]
-    - export CMAKE_ARGS="${CMAKE_ARGS} -DUSE_GPU=1"   # [cuda_compiler_version == "None" and not win]
-    - {{ PYTHON }} -m pip install . -vv
+  run_exports:
+    # Pin conservatively as we don't know ABI guarantees
+    - {{ pin_subpackage("liblightgbm", max_pin="x.x.x") }}
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - cmake >=3.28
     - make    # [not win]
     - ninja   # [win]
@@ -40,37 +33,65 @@ requirements:
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
   host:
-    - scikit-build-core >=0.9.3
-    - python
-    - pip
     - llvm-openmp  # [osx]
     - libgomp  # [linux]
     - libboost-devel              # [cuda_compiler_version == "None"]
     - ocl-icd                     # [cuda_compiler_version == "None" and linux]
     - khronos-opencl-icd-loader   # [cuda_compiler_version == "None" and not linux]
   run:
-    - python
-    - numpy >=1.17.0
-    - scipy
     - __cuda                      # [cuda_compiler_version != "None"]
-  # optional dependencies from [project.optional-dependencies]
-  # at https://github.com/microsoft/LightGBM/blob/master/python-package/pyproject.toml
   run_constrained:
-    - cffi >=1.15.1
-    - dask >=2.0.0
-    - pandas >=0.24.0
-    - pyarrow >=6.0.1
-    - scikit-learn !=0.22.0
+    - lightgbm {{ version }} cuda_*_{{ PKG_BUILDNUM }}   # [cuda_compiler_version != "None"]
+    - lightgbm {{ version }} cpu_*_{{ PKG_BUILDNUM }}    # [cuda_compiler_version == "None"]
 
 test:
-  imports:
-    - lightgbm
-  requires:
-    - pip
-    - scikit-learn
   commands:
-    - pip check
+    - test -f $PREFIX/lib/lib_lightgbm${SHLIB_EXT}  # [unix]
 
+outputs:
+  - name: liblightgbm
+
+  - name: lightgbm
+    script: install-python.sh
+    build:
+      noarch: python
+      string: cuda_py_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+      string: cpu_py_{{ PKG_BUILDNUM }}   # [cuda_compiler_version == "None"]
+      # TODO: remove this when conda-build bug is fixed where `noarch` subpackages
+      # when tested does not find dependencies from target_platform.
+      skip: True  # [build_platform != target_platform]
+    requirements:
+      build:
+        - python                                 # [build_platform != target_platform]
+        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+      host:
+        - python
+        - pip
+        - setuptools
+      run:
+        - python
+        - {{ pin_subpackage("liblightgbm", max_pin="x.x.x") }}
+        - numpy >=1.17.0
+        - scipy
+      # optional dependencies from [project.optional-dependencies]
+      # at https://github.com/microsoft/LightGBM/blob/master/python-package/pyproject.toml
+      run_constrained:
+        - cffi >=1.15.1
+        - dask >=2.0.0
+        - pandas >=0.24.0
+        - pyarrow >=6.0.1
+        - scikit-learn !=0.22.0
+    test:
+      files:
+        - python_run_test.py
+      imports:
+        - lightgbm
+      requires:
+        - pip
+        - scikit-learn
+      commands:
+        - pip check
+        - python python_run_test.py
 
 about:
   home: https://github.com/microsoft/LightGBM
@@ -85,6 +106,7 @@ about:
   dev_url: https://github.com/microsoft/LightGBM
 
 extra:
+  feedstock-name: lightgbm
   recipe-maintainers:
     - synapticarbors
     - aldanor
