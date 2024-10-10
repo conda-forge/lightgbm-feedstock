@@ -14,7 +14,7 @@ source:
     - use_precompiled.diff
 
 build:
-  number: 2
+  number: 3
   string: cuda_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
   string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
   # CUDA is not supported in windows
@@ -86,12 +86,21 @@ outputs:
         - python_run_test.py
       imports:
         - lightgbm
+        - lightgbm.basic
+        - lightgbm.callback
+        - lightgbm.compat
+        - lightgbm.dask
+        - lightgbm.engine
+        - lightgbm.libpath
+        - lightgbm.plotting
+        - lightgbm.sklearn
       requires:
         - pip
         - scikit-learn
       commands:
         - pip check
         - python python_run_test.py
+        - python -c "from lightgbm import __version__"
 
 about:
   home: https://github.com/microsoft/LightGBM
