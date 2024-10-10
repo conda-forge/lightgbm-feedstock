@@ -100,7 +100,7 @@ outputs:
       commands:
         - pip check
         - python python_run_test.py
-        - python -c 'from lightgbm import __version__'
+        - python -c "from lightgbm import __version__"
 
 about:
   home: https://github.com/microsoft/LightGBM
