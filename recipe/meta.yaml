@@ -5,7 +5,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/l/lightgbm/lightgbm-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/l/lightgbm/lightgbm-{{ version }}.tar.gz
   sha256: e1cd7baf0318d4e308a26575a63a4635f08df866ad3622a9d8e3d71d9637a1ba
   patches:
     - boost_shared.diff
@@ -14,7 +14,7 @@ source:
     - use_precompiled.diff
 
 build:
-  number: 3
+  number: 4
   string: cuda_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
   string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
   # CUDA is not supported in windows
@@ -65,11 +65,11 @@ outputs:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
-        - python
+        - python {{ python_min }}
         - pip
         - setuptools
       run:
-        - python
+        - python >={{ python_min }}
         - {{ pin_subpackage("liblightgbm", max_pin="x.x.x") }}
         - numpy >=1.17.0
         - scipy
@@ -97,6 +97,7 @@ outputs:
       requires:
         - pip
         - scikit-learn
+        - python {{ python_min }}
       commands:
         - pip check
         - python python_run_test.py

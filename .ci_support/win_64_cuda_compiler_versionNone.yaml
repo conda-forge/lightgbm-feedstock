@@ -12,5 +12,7 @@ cxx_compiler:
 - vs2019
 libboost_devel:
 - '1.84'
+python_min:
+- '3.9'
 target_platform:
 - win-64
