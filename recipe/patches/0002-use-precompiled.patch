@@ -31,10 +31,10 @@ index 0e6b8425..a6f843c0 100644
          dll_path = [p / "lib_lightgbm.dll" for p in dll_path]
      elif system() == "Darwin":
          dll_path = [p / "lib_lightgbm.dylib" for p in dll_path]
-diff --git a/python-package/pyproject.toml b/python-package/pyproject.toml
+diff --git a//pyproject.toml b/pyproject.toml
 index fa281078..3e35059f 100644
---- a/python-package/pyproject.toml
-+++ b/python-package/pyproject.toml
+--- a/pyproject.toml
++++ b/pyproject.toml
 @@ -55,35 +55,11 @@ documentation = "https://lightgbm.readthedocs.io/en/latest/"
  repository = "https://github.com/microsoft/LightGBM.git"
  changelog = "https://github.com/microsoft/LightGBM/releases"
