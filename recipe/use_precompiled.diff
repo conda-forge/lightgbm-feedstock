@@ -1,8 +1,8 @@
-diff --git a/lightgbm/libpath.py b/lightgbm/libpath.py
-index a55e736..0ee2c7f 100644
---- a/lightgbm/libpath.py
-+++ b/lightgbm/libpath.py
-@@ -4,6 +4,7 @@
+diff --git a/python-package/lightgbm/libpath.py b/python-package/lightgbm/libpath.py
+index 0e6b8425..a6f843c0 100644
+--- a/python-package/lightgbm/libpath.py
++++ b/python-package/lightgbm/libpath.py
+@@ -6,6 +6,7 @@ from os import environ
  from pathlib import Path
  from platform import system
  from typing import List
@@ -10,7 +10,7 @@ index a55e736..0ee2c7f 100644
  
  __all__: List[str] = []
  
-@@ -16,15 +17,14 @@ def find_lib_path() -> List[str]:
+@@ -18,15 +19,14 @@ def _find_lib_path() -> List[str]:
      lib_path: list of str
         List of all found library paths to LightGBM.
      """
@@ -31,32 +31,32 @@ index a55e736..0ee2c7f 100644
          dll_path = [p / "lib_lightgbm.dll" for p in dll_path]
      elif system() == "Darwin":
          dll_path = [p / "lib_lightgbm.dylib" for p in dll_path]
-diff --git a/pyproject.toml b/pyproject.toml
-index 6234464..74de135 100644
---- a/pyproject.toml
-+++ b/pyproject.toml
-@@ -54,35 +54,11 @@ documentation = "https://lightgbm.readthedocs.io/en/latest/"
+diff --git a/python-package/pyproject.toml b/python-package/pyproject.toml
+index fa281078..3e35059f 100644
+--- a/python-package/pyproject.toml
++++ b/python-package/pyproject.toml
+@@ -55,35 +55,11 @@ documentation = "https://lightgbm.readthedocs.io/en/latest/"
  repository = "https://github.com/microsoft/LightGBM.git"
  changelog = "https://github.com/microsoft/LightGBM/releases"
  
 -# start:build-system
  [build-system]
 -
--requires = ["scikit-build-core>=0.9.3"]
+-requires = ["scikit-build-core>=0.10.1"]
 -build-backend = "scikit_build_core.build"
 -
 -# based on https://github.com/scikit-build/scikit-build-core#configuration
 -[tool.scikit-build]
 -
--cmake.version = ">=3.18"
+-cmake.version = "CMakeLists.txt"
 -ninja.version = ">=1.11"
 -ninja.make-fallback = true
 -cmake.args = [
 -    "-D__BUILD_FOR_PYTHON:BOOL=ON"
 -]
--cmake.verbose = false
+-build.verbose = false
 -cmake.build-type = "Release"
--cmake.targets = ["_lightgbm"]
+-build.targets = ["_lightgbm"]
 -# stripping binaries should be turned back on once this is fixed:
 -# https://github.com/jameslamb/pydistcheck/issues/235
 -install.strip = false
@@ -65,7 +65,7 @@ index 6234464..74de135 100644
 -wheel.py-api = "py3"
 -experimental = false
 -strict-config = false
--minimum-version = "0.9.3"
+-minimum-version = "build-system.requires"
 -
 -# end:build-system
 +requires = ["setuptools"]
@@ -73,5 +73,5 @@ index 6234464..74de135 100644
 +[tool.setuptools.packages]
 +find = {}
  
- [tool.isort]
- include_trailing_comma = true
+ [tool.mypy]
+ disallow_untyped_defs = true
