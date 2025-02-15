@@ -80,7 +80,7 @@ outputs:
         - dask >=2.0.0
         - pandas >=0.24.0
         - pyarrow >=6.0.1
-        - scikit-learn !=0.22.0
+        - scikit-learn >=0.24.2
     test:
       files:
         - python_run_test.py
