@@ -8,10 +8,10 @@ source:
   url: https://pypi.org/packages/source/l/lightgbm/lightgbm-{{ version }}.tar.gz
   sha256: cb1c59720eb569389c0ba74d14f52351b573af489f230032a1c9f314f8bab7fe
   patches:
-    - boost_shared.diff
+    - patches/0001-boost-shared.patch
     # Taken from https://github.com/microsoft/LightGBM/blob/v4.5.0/build-python.sh#L308-L316
     # except that we don't copy lib_lightgbm.so to SP_DIR
-    - use_precompiled.diff
+    - patches/0002-use-precompiled.patch
 
 build:
   number: 0
