@@ -11,7 +11,7 @@ Summary: LightGBM is a gradient boosting framework that uses tree based learning
 
 Development: https://github.com/microsoft/LightGBM
 
-Documentation: https://lightgbm.readthedocs.io/en/v4.5.0/
+Documentation: https://lightgbm.readthedocs.io/en/v4.6.0/
 
 A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework based on decision tree algorithms, used for ranking, classification and many other machine learning tasks.
 
