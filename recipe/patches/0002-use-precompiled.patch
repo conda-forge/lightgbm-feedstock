@@ -1,0 +1,77 @@
+diff --git a/lightgbm/libpath.py b/lightgbm/libpath.py
+index 0e6b8425..a6f843c0 100644
+--- a/lightgbm/libpath.py
++++ b/lightgbm/libpath.py
+@@ -6,6 +6,7 @@ from os import environ
+ from pathlib import Path
+ from platform import system
+ from typing import List
++import sys
+ 
+ __all__: List[str] = []
+ 
+@@ -18,15 +19,14 @@ def _find_lib_path() -> List[str]:
+     lib_path: list of str
+        List of all found library paths to LightGBM.
+     """
+-    curr_path = Path(__file__).absolute()
++    prefix = Path(sys.prefix)
+     dll_path = [
+-        curr_path.parents[1],
+-        curr_path.parents[0] / "bin",
+-        curr_path.parents[0] / "lib",
++        prefix / "bin",
++        prefix / "lib",
++        prefix / "Library" / "bin",
++        prefix / "Library" / "lib",
+     ]
+     if system() in ("Windows", "Microsoft"):
+-        dll_path.append(curr_path.parents[1] / "Release")
+-        dll_path.append(curr_path.parents[1] / "windows" / "x64" / "DLL")
+         dll_path = [p / "lib_lightgbm.dll" for p in dll_path]
+     elif system() == "Darwin":
+         dll_path = [p / "lib_lightgbm.dylib" for p in dll_path]
+diff --git a//pyproject.toml b/pyproject.toml
+index fa281078..3e35059f 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -55,35 +55,11 @@ documentation = "https://lightgbm.readthedocs.io/en/latest/"
+ repository = "https://github.com/microsoft/LightGBM.git"
+ changelog = "https://github.com/microsoft/LightGBM/releases"
+ 
+-# start:build-system
+ [build-system]
+-
+-requires = ["scikit-build-core>=0.10.1"]
+-build-backend = "scikit_build_core.build"
+-
+-# based on https://github.com/scikit-build/scikit-build-core#configuration
+-[tool.scikit-build]
+-
+-cmake.version = "CMakeLists.txt"
+-ninja.version = ">=1.11"
+-ninja.make-fallback = true
+-cmake.args = [
+-    "-D__BUILD_FOR_PYTHON:BOOL=ON"
+-]
+-build.verbose = false
+-cmake.build-type = "Release"
+-build.targets = ["_lightgbm"]
+-# stripping binaries should be turned back on once this is fixed:
+-# https://github.com/jameslamb/pydistcheck/issues/235
+-install.strip = false
+-logging.level = "INFO"
+-sdist.reproducible = true
+-wheel.py-api = "py3"
+-experimental = false
+-strict-config = false
+-minimum-version = "build-system.requires"
+-
+-# end:build-system
++requires = ["setuptools"]
++build-backend = "setuptools.build_meta"
++[tool.setuptools.packages]
++find = {}
+ 
+ [tool.mypy]
+ disallow_untyped_defs = true
