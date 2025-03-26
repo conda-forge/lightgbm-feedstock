@@ -23,7 +23,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
 libboost_devel:
-- '1.84'
+- '1.86'
 python_min:
 - '3.9'
 target_platform:

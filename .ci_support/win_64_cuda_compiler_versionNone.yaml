@@ -11,7 +11,7 @@ cuda_compiler_version:
 cxx_compiler:
 - vs2019
 libboost_devel:
-- '1.84'
+- '1.86'
 python_min:
 - '3.9'
 target_platform:

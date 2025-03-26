@@ -12,9 +12,11 @@ source:
     # Taken from https://github.com/microsoft/LightGBM/blob/v4.5.0/build-python.sh#L308-L316
     # except that we don't copy lib_lightgbm.so to SP_DIR
     - patches/0002-use-precompiled.patch
+    # Compatibility fix for Boost 1.86
+    - patches/0003-boost-sha1.patch
 
 build:
-  number: 0
+  number: 1
   string: cuda_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
   string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
   # CUDA is not supported in windows
