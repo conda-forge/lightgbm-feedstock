@@ -16,7 +16,7 @@ source:
     - patches/0003-boost-sha1.patch
 
 build:
-  number: 1
+  number: 2
   string: cuda_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
   string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
   # CUDA is not supported in windows
