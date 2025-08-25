@@ -21,7 +21,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '19'
 libboost_devel:
-- '1.86'
+- '1.88'
 llvm_openmp:
 - '19'
 macos_machine:
