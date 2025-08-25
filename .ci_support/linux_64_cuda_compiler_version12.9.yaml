@@ -25,10 +25,11 @@ docker_image:
 libboost_devel:
 - '1.86'
 python_min:
-- '3.9'
+- '3.10'
 target_platform:
 - linux-64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+  - c_stdlib_version
   - cuda_compiler_version
