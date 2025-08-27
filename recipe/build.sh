@@ -9,6 +9,6 @@ mkdir build
 cd build
 
 cmake ${CMAKE_ARGS} -DBUILD_CLI=OFF -DUSE_HOMEBREW_FALLBACK=OFF ..
-make -j${CPU_COUNT}
+make VERBOSE=1 -j${CPU_COUNT}
 make install
 
