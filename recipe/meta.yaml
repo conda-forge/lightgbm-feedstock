@@ -18,7 +18,7 @@ source:
     - patches/0004-use-cxx-17.patch
 
 build:
-  number: 3
+  number: 4
   string: cuda_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
   string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
   # CUDA is not supported in windows
