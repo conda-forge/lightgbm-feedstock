@@ -1,0 +1,13 @@
+--- ./CMakeLists.txt    2025-09-11 20:55:12
++++ ./CMakeLists.txt   2025-09-11 20:59:33
+@@ -248,6 +248,10 @@
+     if(CUDAToolkit_VERSION VERSION_GREATER_EQUAL "12.8")
+         list(APPEND CUDA_ARCHS "100")
+         list(APPEND CUDA_ARCHS "120")
++    endif()
++    # CUDA 13.0 remove support for architectures before sm75
++    if(CUDAToolkit_VERSION VERSION_GREATER_EQUAL "13.0")
++        list(REMOVE_ITEM CUDA_ARCHS "60" "61" "62" "70")
+     endif()
+     # Generate PTX for the most recent architecture for forwards compatibility
+     list(POP_BACK CUDA_ARCHS CUDA_LAST_SUPPORTED_ARCH
