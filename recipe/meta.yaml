@@ -16,6 +16,8 @@ source:
     - patches/0003-boost-sha1.patch
     # use C++17
     - patches/0004-use-cxx-17.patch
+    # avoid trying to compile for unsupported GPU architectures when targeting CUDA 13
+    - patches/0005-drop-arches-for-cuda13.patch
 
 build:
   number: 4
