@@ -20,8 +20,8 @@ source:
     - patches/0005-drop-arches-for-cuda13.patch
 
 build:
-  number: 4
-  string: cuda_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+  number: 5
+  string: cuda{{ cuda_compiler_version | replace('.', '') }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
   string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
   # CUDA is not supported in windows
   skip: true  # [cuda_compiler_version != "None" and win]
@@ -61,7 +61,7 @@ outputs:
     script: install-python.sh
     build:
       noarch: python
-      string: cuda_py_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+      string: cuda{{ cuda_compiler_version | replace('.', '') }}_py_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_py_{{ PKG_BUILDNUM }}   # [cuda_compiler_version == "None"]
       # TODO: remove this when conda-build bug is fixed where `noarch` subpackages
       # when tested does not find dependencies from target_platform.
