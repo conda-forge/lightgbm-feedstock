@@ -47,7 +47,7 @@ requirements:
   run:
     - __cuda                      # [cuda_compiler_version != "None"]
   run_constrained:
-    - lightgbm {{ version }} cuda_*_{{ PKG_BUILDNUM }}   # [cuda_compiler_version != "None"]
+    - lightgbm {{ version }} cuda{{ cuda_compiler_version | replace('.', '') }}_*_{{ PKG_BUILDNUM }}   # [cuda_compiler_version != "None"]
     - lightgbm {{ version }} cpu_*_{{ PKG_BUILDNUM }}    # [cuda_compiler_version == "None"]
 
 test:
