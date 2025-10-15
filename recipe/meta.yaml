@@ -20,7 +20,7 @@ source:
     - patches/0005-drop-arches-for-cuda13.patch
 
 build:
-  number: 5
+  number: 6
   string: cuda{{ cuda_compiler_version | replace('.', '') }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
   string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
   # CUDA is not supported in windows
