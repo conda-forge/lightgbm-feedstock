@@ -125,6 +125,7 @@ about:
 extra:
   feedstock-name: lightgbm
   recipe-maintainers:
+    - timkpaine
     - synapticarbors
     - aldanor
     - xhochy
