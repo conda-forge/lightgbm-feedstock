@@ -15,7 +15,7 @@ index 0e6b8425..a6f843c0 100644
         List of all found library paths to LightGBM.
      """
 -    curr_path = Path(__file__).absolute()
-+    prefix = Path(sys.prefix)
++    prefix = Path(sys.base_prefix)
      dll_path = [
 -        curr_path.parents[1],
 -        curr_path.parents[0] / "bin",
