@@ -22,7 +22,7 @@ source:
 
 build:
   number: 7
-  string: ${{ "cpu" if cuda_compiler_version == "None" else "cuda" + (cuda_compiler_version | replace('.', ''))}}_h${{ PKG_HASH }}_${{ PKG_BUILDNUM }}
+  string: ${{ "cpu" if cuda_compiler_version == "None" else "cuda" + (cuda_compiler_version | replace('.', '')) }}_h${{ PKG_HASH }}_${{ PKG_BUILDNUM }}
   # CUDA is not supported in windows
   skip: cuda_compiler_version != "None" and win
 
@@ -83,7 +83,7 @@ outputs:
     build:
       noarch: python
       script: install-python.sh
-      string: ${{ "cpu_py" if cuda_compiler_version == "None" else "cuda" + (cuda_compiler_version | replace('.', ''))}}_h${{ PKG_HASH }}_${{ PKG_BUILDNUM }}
+      string: ${{ "cpu_py" if cuda_compiler_version == "None" else "cuda" + (cuda_compiler_version | replace('.', '')) }}_h${{ PKG_HASH }}_${{ PKG_BUILDNUM }}
     requirements:
       build:
         - if: build_platform != target_platform
@@ -91,7 +91,7 @@ outputs:
             - python
             - cross-python_${{ target_platform }}
       host:
-        - python ${{ python_min }}
+        - python ==${{ python_min }}
         - pip
         - setuptools
       run:
@@ -123,7 +123,7 @@ outputs:
             - lightgbm.plotting
             - lightgbm.sklearn
           pip_check: true
-          python_version: ${{ python_min }}
+          python_version: ==${{ python_min }}
       - script:
           - python python_run_test.py
           - python -c "from lightgbm import __version__"
