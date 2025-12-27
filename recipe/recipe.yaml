@@ -1,4 +1,5 @@
 context:
+  build_number: 7
   version: '4.6.0'
 
 recipe:
@@ -21,7 +22,7 @@ source:
     - patches/0005-drop-arches-for-cuda13.patch
 
 build:
-  number: 7
+  number: ${{ build_number }}
   string: ${{ "cpu" if cuda_compiler_version == "None" else "cuda" + (cuda_compiler_version | replace('.', '')) }}_h${{ hash }}_${{ build_number }}
   # CUDA is not supported in windows
   skip: cuda_compiler_version != "None" and win
