@@ -83,7 +83,8 @@ outputs:
       name: lightgbm
     build:
       noarch: python
-      script: install-python.sh
+      script:
+        file: install-python
       string: ${{ "cpu_py" if cuda_compiler_version == "None" else "cuda" + (cuda_compiler_version | replace('.', '')) }}_h${{ hash }}_${{ build_number }}
     requirements:
       build:
