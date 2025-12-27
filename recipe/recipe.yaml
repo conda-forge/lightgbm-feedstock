@@ -123,7 +123,8 @@ outputs:
             - lightgbm.plotting
             - lightgbm.sklearn
           pip_check: true
-          python_version: ==${{ python_min }}
+          python_version:
+            - ${{ python_min }}
       - script:
           - python python_run_test.py
           - python -c "from lightgbm import __version__"
