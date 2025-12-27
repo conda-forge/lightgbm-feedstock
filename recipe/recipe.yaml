@@ -22,7 +22,7 @@ source:
 
 build:
   number: 7
-  string: ${{ "cpu" if cuda_compiler_version == "None" else "cuda" + (cuda_compiler_version | replace('.', '')) }}_h${{ PKG_HASH }}_${{ PKG_BUILDNUM }}
+  string: ${{ "cpu" if cuda_compiler_version == "None" else "cuda" + (cuda_compiler_version | replace('.', '')) }}_h${{ hash }}_${{ build_number }}
   # CUDA is not supported in windows
   skip: cuda_compiler_version != "None" and win
 
@@ -66,9 +66,9 @@ outputs:
       run_constraints:
         - if: cuda_compiler_version == "None"
           then:
-            - lightgbm ==${{ version }} cpu_*_${{ PKG_BUILDNUM }}
+            - lightgbm ==${{ version }} cpu_*_${{ build_number }}
           else:
-            - lightgbm ==${{ version }} cuda${{ cuda_compiler_version | replace('.', '') }}_*_${{ PKG_BUILDNUM }}
+            - lightgbm ==${{ version }} cuda${{ cuda_compiler_version | replace('.', '') }}_*_${{ build_number }}
       run_exports:
         # Pin conservatively as we don't know ABI guarantees
         - ${{ pin_subpackage("liblightgbm", upper_bound="x.x.x") }}
@@ -83,12 +83,12 @@ outputs:
     build:
       noarch: python
       script: install-python.sh
-      string: ${{ "cpu_py" if cuda_compiler_version == "None" else "cuda" + (cuda_compiler_version | replace('.', '')) }}_h${{ PKG_HASH }}_${{ PKG_BUILDNUM }}
+      string: ${{ "cpu_py" if cuda_compiler_version == "None" else "cuda" + (cuda_compiler_version | replace('.', '')) }}_h${{ hash }}_${{ build_number }}
     requirements:
       build:
         - if: build_platform != target_platform
           then:
-            - python
+            - python ${{ python_min }}.*
             - cross-python_${{ target_platform }}
       host:
         - python ${{ python_min }}.*
