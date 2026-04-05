@@ -1,0 +1,25 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -219,7 +219,10 @@ endif()
+ if(USE_CUDA)
+     find_package(CUDAToolkit 11.0 REQUIRED)
+     include_directories(${CUDAToolkit_INCLUDE_DIRS})
+-    set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler=${OpenMP_CXX_FLAGS} -Xcompiler=-fPIC -Xcompiler=-Wall")
++    set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler=${OpenMP_CXX_FLAGS}")
++    if(NOT MSVC)
++        set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler=-fPIC -Xcompiler=-Wall")
++    endif()
+
+     # reference for mapping of CUDA toolkit component versions to supported architectures ("compute capabilities"):
+     # https://en.wikipedia.org/wiki/CUDA#GPUs_supported
+@@ -241,6 +244,10 @@ if(USE_CUDA)
+         list(APPEND CUDA_ARCHS "100")
+         list(APPEND CUDA_ARCHS "120")
+     endif()
++    if(CUDAToolkit_VERSION VERSION_GREATER_EQUAL "13.0")
++        # CUDA 13.x dropped support for compute capabilities < 7.5 (Maxwell, Pascal, Volta)
++        list(REMOVE_ITEM CUDA_ARCHS "60" "61" "62" "70")
++    endif()
+     # Generate PTX for the most recent architecture for forwards compatibility
+     list(POP_BACK CUDA_ARCHS CUDA_LAST_SUPPORTED_ARCH)
+     list(TRANSFORM CUDA_ARCHS APPEND "-real")

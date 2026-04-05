@@ -1,33 +1,44 @@
 {% set name = "lightgbm" %}
 {% set version = "4.6.0" %}
+{% set build_number = 0 %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
     sha256: cb1c59720eb569389c0ba74d14f52351b573af489f230032a1c9f314f8bab7fe
+    patches:
+      - patches/cuda13-compat.patch  # [gpu_variant == "cuda"]
   - url: https://github.com/microsoft/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
     sha256: 71d2c25855f10e82da8cb8b0c42bdf0da56e5556ff50a93b31c0592b8932eda3
     folder: tests
 
 build:
-  number: 0
-  skip: true  # [py<37]
-  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv -Ccmake.define.CMAKE_GENERATOR="Visual Studio 16 2019"  # [win]
-  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv -Ccmake.define.CMAKE_GENERATOR="Ninja" # [unix]
-  missing_dso_whitelist:  # [s390x or osx]
+  number: {{ build_number + 100 }}  # [gpu_variant == "cuda"]
+  number: {{ build_number }}        # [gpu_variant != "cuda"]
+  string: cuda{{ cuda_compiler_version | replace('.', '') }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [gpu_variant == "cuda"]
+  string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}                                                # [gpu_variant != "cuda"]
+  skip: true  # [py<39]
+  script: build.sh   # [unix]
+  script: bld.bat    # [win]
+  # Suppress CUDA compiler run_exports (tight pin); use explicit cuda-version
+  # pin_compatible(min_pin='x') instead for forward compat within major version.
+  ignore_run_exports_from:                        # [gpu_variant == "cuda"]
+    - {{ compiler('cuda') }}                      # [gpu_variant == "cuda"]
+  missing_dso_whitelist:  # [s390x or osx or gpu_variant == "cuda"]
     - "*/ld64.so.1"       # [s390x]
     - '*/libc++.1.dylib'  # [osx]
+    - "**/libcuda.so*"    # [gpu_variant == "cuda"]
+    - "**/nvcuda.dll"     # [win and gpu_variant == "cuda"]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - {{ compiler('cuda') }}   # [gpu_variant == "cuda"]
     - cmake >=3.18
-      # We currently don't have ninja 1.11, which upstream specifies.
-      # However, this feedstock builds and passes tests with v1.10.2
     - ninja >=1.12.1  # [unix]
   host:
     # This basically forces to pick scipy (and any other suitable packages in the chain, like numpy)
@@ -38,13 +49,17 @@ requirements:
     - scikit-build-core >=0.10.1
     - python
     - pip
-    - llvm-openmp      # [osx]
+    - llvm-openmp                                          # [osx]
+    - cuda-version {{ cuda_compiler_version }}              # [gpu_variant == "cuda"]
+    - cuda-cudart-dev                                      # [gpu_variant == "cuda"]
   run:
     - _openmp_mutex    # [linux]
     - blas =*=openblas  # [osx and x86_64]
     - python
     - numpy >=1.17.0
     - scipy
+    - {{ pin_compatible('cuda-version', min_pin='x') }}    # [gpu_variant == "cuda"]
+    - __cuda                                               # [gpu_variant == "cuda"]
   run_constrained:
     - cffi >=1.15.1
     - dask >=2.0.0
@@ -73,6 +88,10 @@ test:
     - scikit-learn
   commands:
     - pip check
+    - python -c "import lightgbm; print('LightGBM version:', lightgbm.__version__)"
+    # Verify shared library loads correctly (catches CUDA linkage issues)
+    - python -c "import ctypes, os, lightgbm; lib_path = os.path.join(os.path.dirname(lightgbm.__file__), 'lib_lightgbm.so'); ctypes.cdll.LoadLibrary(lib_path); print('Shared library loaded successfully')"  # [linux]
+    - python -c "import ctypes, os, lightgbm; lib_path = os.path.join(os.path.dirname(lightgbm.__file__), 'lib_lightgbm.dylib'); ctypes.cdll.LoadLibrary(lib_path); print('Shared library loaded successfully')"  # [osx]
     # skipping tests on s390x due to the accuracy required for computational tests.
     - pytest -vv .  # [not s390x]
     - pytest -vv -k "not (test_categorical_handle or test_categorical_handle_na or test_categorical_non_zero_inputs or test_contribs_sparse_multiclass or test_quantized_training or test_contribs_sparse)"  # [s390x]
