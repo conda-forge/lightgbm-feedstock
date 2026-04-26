@@ -1,5 +1,5 @@
 context:
-  build_number: 7
+  build_number: 8
   version: '4.6.0'
 
 recipe:
@@ -54,9 +54,9 @@ outputs:
         - if: cuda_compiler_version == "None"
           then:
             - libboost-devel
-        - if: cuda_compiler_version == "None" and linux
-          then:
-            - ocl-icd
+            - if: linux
+              then:
+                - ocl-icd
         - if: cuda_compiler_version == "None" and not linux
           then:
             - khronos-opencl-icd-loader
@@ -133,10 +133,10 @@ outputs:
           recipe:
             - python_run_test.py
         requirements:
-            run:
-              - pip
-              - scikit-learn
-              - python ${{ python_min }}.*
+          run:
+            - pip
+            - scikit-learn
+            - python ${{ python_min }}.*
 
 about:
   homepage: https://github.com/lightgbm-org/LightGBM
