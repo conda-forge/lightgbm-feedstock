@@ -30,6 +30,9 @@ build:
 outputs:
   - package:
       name: liblightgbm
+    build:
+      script:
+        file: build
     requirements:
       build:
         - cmake >=3.28
