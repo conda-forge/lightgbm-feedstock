@@ -14,8 +14,6 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-cuda_compiler:
-- cuda-nvcc
 cuda_compiler_version:
 - None
 cxx_compiler:
@@ -23,7 +21,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '19'
 libboost_devel:
-- '1.88'
+- '1.90'
 llvm_openmp:
 - '19'
 macos_machine:

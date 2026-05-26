@@ -1,5 +1,5 @@
 context:
-  build_number: 7
+  build_number: 8
   version: '4.6.0'
 
 recipe:
@@ -10,6 +10,7 @@ source:
   url: https://pypi.org/packages/source/l/lightgbm/lightgbm-${{ version }}.tar.gz
   sha256: cb1c59720eb569389c0ba74d14f52351b573af489f230032a1c9f314f8bab7fe
   patches:
+    # Use shared Boost libs on Windows and avoid the removed Boost.System component.
     - patches/0001-boost-shared.patch
     # Taken from https://github.com/lightgbm-org/LightGBM/blob/v4.5.0/build-python.sh#L308-L316
     # except that we don't copy lib_lightgbm.so to SP_DIR
@@ -30,6 +31,9 @@ build:
 outputs:
   - package:
       name: liblightgbm
+    build:
+      script:
+        file: build
     requirements:
       build:
         - cmake >=3.28
@@ -54,9 +58,9 @@ outputs:
         - if: cuda_compiler_version == "None"
           then:
             - libboost-devel
-        - if: cuda_compiler_version == "None" and linux
-          then:
-            - ocl-icd
+            - if: linux
+              then:
+                - ocl-icd
         - if: cuda_compiler_version == "None" and not linux
           then:
             - khronos-opencl-icd-loader
@@ -133,10 +137,10 @@ outputs:
           recipe:
             - python_run_test.py
         requirements:
-            run:
-              - pip
-              - scikit-learn
-              - python ${{ python_min }}.*
+          run:
+            - pip
+            - scikit-learn
+            - python ${{ python_min }}.*
 
 about:
   homepage: https://github.com/lightgbm-org/LightGBM
