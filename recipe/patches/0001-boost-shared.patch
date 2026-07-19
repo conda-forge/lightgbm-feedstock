@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -191,9 +191,9 @@ if(USE_GPU)
+@@ -219,9 +219,9 @@ if(USE_GPU)
      include_directories(${OpenCL_INCLUDE_DIRS})
      message(STATUS "OpenCL include directory: " ${OpenCL_INCLUDE_DIRS})
      if(WIN32)
