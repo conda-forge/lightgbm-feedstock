@@ -8,7 +8,7 @@ fi
 mkdir build
 cd build
 
-cmake ${CMAKE_ARGS} -DBUILD_CLI=OFF -DUSE_HOMEBREW_FALLBACK=OFF ..
+cmake ${CMAKE_ARGS} -DBUILD_CLI=OFF -DBUILD_WITH_SHARED_NCCL=ON -DUSE_HOMEBREW_FALLBACK=OFF ..
 make -j${CPU_COUNT}
 make install
 
