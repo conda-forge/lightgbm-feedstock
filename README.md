@@ -11,7 +11,7 @@ Summary: LightGBM is a gradient boosting framework that uses tree based learning
 
 Development: https://github.com/lightgbm-org/LightGBM
 
-Documentation: https://lightgbm.readthedocs.io/en/v4.6.0/
+Documentation: https://lightgbm.readthedocs.io/en/v4.7.0/
 
 A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework based on decision tree algorithms, used for ranking, classification and many other machine learning tasks.
 
@@ -19,7 +19,14 @@ Current build status
 ====================
 
 
-<table>
+<table><tr>
+    <td>GitHub Actions</td>
+    <td>
+      <a href="https://github.com/conda-forge/lightgbm-feedstock/actions/workflows/conda-build.yml">
+        <img src="https://github.com/conda-forge/lightgbm-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+      </a>
+    </td>
+  </tr>
     
   <tr>
     <td>Azure</td>
@@ -33,66 +40,10 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_cuda_compiler_version12.9</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5067&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lightgbm-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_version12.9" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_64_cuda_compiler_version13.0</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5067&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lightgbm-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_version13.0" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_64_cuda_compiler_versionNone</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5067&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lightgbm-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_versionNone" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_c_stdlib_version2.17cuda_compiler_version12.9</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5067&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lightgbm-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.17cuda_compiler_version12.9" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_c_stdlib_version2.17cuda_compiler_versionNone</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5067&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lightgbm-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.17cuda_compiler_versionNone" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_c_stdlib_version2.28cuda_compiler_version13.0</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5067&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lightgbm-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.28cuda_compiler_version13.0" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5067&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lightgbm-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
               <td>osx_64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5067&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lightgbm-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5067&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lightgbm-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
