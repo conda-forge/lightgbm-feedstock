@@ -51,6 +51,9 @@ outputs:
         - if: linux
           then:
             - libgomp
+        - if: cuda_compiler_version != "None"
+          then:
+            - nccl
         - if: cuda_compiler_version == "None"
           then:
             - libboost-devel
