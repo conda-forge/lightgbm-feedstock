@@ -4,7 +4,7 @@ A simple test for LightGBM based on scikit-learn.
 Tests are not shipped with the source distribution so we include a simple
 functional test here that is adapted from:
 
-    https://github.com/lightgbm-org/LightGBM/blob/mains/tests/python_package_test/test_sklearn.py
+    https://github.com/lightgbm-org/LightGBM/blob/main/tests/python_package_test/test_sklearn.py
 
 """
 
