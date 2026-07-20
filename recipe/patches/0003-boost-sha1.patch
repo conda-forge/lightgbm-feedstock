@@ -1,7 +1,6 @@
-diff -ur lightgbm-4.5.0.orig/external_libs/compute/include/boost/compute/detail/sha1.hpp lightgbm-4.5.0/external_libs/compute/include/boost/compute/detail/sha1.hpp
---- lightgbm-4.5.0.orig/external_libs/compute/include/boost/compute/detail/sha1.hpp	2022-11-09 07:37:21.000000000 -0500
-+++ lightgbm-4.5.0/external_libs/compute/include/boost/compute/detail/sha1.hpp	2025-02-11 04:25:47.787251140 -0500
-@@ -37,12 +37,12 @@
+--- a/external_libs/compute/include/boost/compute/detail/sha1.hpp
++++ b/external_libs/compute/include/boost/compute/detail/sha1.hpp
+@@ -37,12 +37,12 @@ class sha1 {
          }
  
          operator std::string() {
@@ -13,7 +12,7 @@ diff -ur lightgbm-4.5.0.orig/external_libs/compute/include/boost/compute/detail/
 -            for(int i = 0; i < 5; ++i)
 -                buf << std::hex << std::setfill('0') << std::setw(8) << digest[i];
 +            for(size_t i = 0; i < sizeof(digest) / sizeof(digest[0]); ++i)
-+              buf << std::hex << std::setfill('0') << std::setw(sizeof(digest[0]) * 2) << digest[i];
++                buf << std::hex << std::setfill('0') << std::setw(sizeof(digest[0]) * 2) << digest[i];
  
              return buf.str();
          }
